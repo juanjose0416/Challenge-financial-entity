@@ -2,7 +2,6 @@ package com.financial.challenge.domain.model;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.Period;
 
 import com.financial.challenge.domain.util.enums.DocumentTypeEnum;
 
@@ -19,12 +18,4 @@ public class Client {
   private LocalDate birthDate;
   private LocalDateTime createdAt;
   private LocalDateTime updatedAt;
-
-  public boolean isOlder() {
-    return calculateAge() >= 18;
-  }
-
-  public int calculateAge() {
-    return Period.between(this.birthDate, LocalDate.now()).getYears();
-  }
 }
