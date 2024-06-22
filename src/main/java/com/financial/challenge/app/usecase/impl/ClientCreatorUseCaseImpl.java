@@ -1,5 +1,7 @@
 package com.financial.challenge.app.usecase.impl;
 
+import java.util.Optional;
+
 import org.springframework.stereotype.Service;
 
 import com.financial.challenge.app.dto.client.request.CreateClientRequest;
@@ -16,15 +18,19 @@ import lombok.AllArgsConstructor;
 @Service
 public class ClientCreatorUseCaseImpl implements ClientCreatorUseCase {
 
-    private final ClientService clientService;
-    private final CreateClientRequestMapper createClientRequestMapper;
-    private final ClientResponseMapper clientResponseMapper;
+  private final ClientService clientService;
+  private final CreateClientRequestMapper createClientRequestMapper;
+  private final ClientResponseMapper clientResponseMapper;
 
-    @Override
-    public ClientResponse createClient(CreateClientRequest request) {
-        Client client = createClientRequestMapper.toClient(request);
-        Client response = clientService.createClient(client);
-        return clientResponseMapper.toClientResponse(response);
+  @Override
+  public ClientResponse createClient(CreateClientRequest request) throws Exception {
+    Optional<Client> client = clientService.getClient(request.getDocumentNumber());
+    if (client.isEmpty()) {
+      Client clientMapped = createClientRequestMapper.toClient(request);
+      Client response = clientService.createClient(clientMapped);
+      return clientResponseMapper.toClientResponse(response);
     }
-
+    throw new Exception(
+        String.format("Client with document %s already exist", request.getDocumentNumber()));
+  }
 }
