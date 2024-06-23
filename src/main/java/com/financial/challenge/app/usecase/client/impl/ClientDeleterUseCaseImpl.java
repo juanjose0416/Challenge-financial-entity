@@ -18,12 +18,8 @@ public class ClientDeleterUseCaseImpl implements ClientDeleterUseCase {
 
   @Override
   public void deleteClient(String documentNumber) throws Exception {
-    Optional<Client> client = clientService.getClient(documentNumber);
-    if (client.isPresent()) {
-      deleteClientIfIsValid(client.get());
-    } else {
-      throw new Exception(String.format("Client with document %s doesn't exist", documentNumber));
-    }
+    Client client = clientService.getClient(documentNumber);
+    deleteClientIfIsValid(client);
   }
 
   private void deleteClientIfIsValid(Client client) throws Exception {

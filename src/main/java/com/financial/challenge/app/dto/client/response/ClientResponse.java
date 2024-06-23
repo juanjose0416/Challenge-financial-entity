@@ -2,8 +2,11 @@ package com.financial.challenge.app.dto.client.response;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.financial.challenge.domain.model.Account;
 import com.financial.challenge.domain.util.enums.DocumentTypeEnum;
 
 import lombok.AllArgsConstructor;
@@ -35,4 +38,7 @@ public class ClientResponse {
 
     @JsonProperty
     private LocalDateTime createdAt;
+
+    @JsonProperty
+    private List<Account> accounts;
 }

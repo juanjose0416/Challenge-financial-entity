@@ -1,5 +1,7 @@
 package com.financial.challenge.infraestructure.out.jpa.mapper;
 
+import java.util.List;
+
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
@@ -17,4 +19,6 @@ public interface ClientEntityMapper {
 
     @Mapping(source = "accounts", target = "accounts")
     Client clientEntityToClient(ClientEntity clientEntity);
+
+    List<Client> clientEntitiesToClients(List<ClientEntity> clientEntities);
 }

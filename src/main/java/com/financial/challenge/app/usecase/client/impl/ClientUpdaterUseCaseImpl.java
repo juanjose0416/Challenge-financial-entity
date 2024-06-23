@@ -1,7 +1,5 @@
 package com.financial.challenge.app.usecase.client.impl;
 
-import java.util.Optional;
-
 import org.springframework.stereotype.Service;
 
 import com.financial.challenge.app.dto.client.request.UpdateClientRequest;
@@ -21,14 +19,10 @@ public class ClientUpdaterUseCaseImpl implements ClientUpdaterUseCase {
 
   @Override
   public void updateClient(UpdateClientRequest request) throws Exception {
-    Optional<Client> client = clientService.getClient(request.getDocumentNumber());
-    if (client.isPresent()) {
-      Client clientMapped = clientRequestMapper.toClient(request);
-      clientMapped.setId(client.get().getId());
-      clientService.updateClient(clientMapped);
-    } else {
-      throw new Exception(
-          String.format("Client with document %s doesn't exist", request.getDocumentNumber()));
-    }
+    Client client = clientService.getClient(request.getDocumentNumber());
+    Client clientMapped = clientRequestMapper.toClient(request);
+    clientMapped.setId(client.getId());
+    clientMapped.setCreatedAt(client.getCreatedAt());
+    clientService.updateClient(clientMapped);
   }
 }

@@ -1,5 +1,6 @@
 package com.financial.challenge.infraestructure.out.jpa.adapter;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Component;
@@ -38,5 +39,10 @@ public class ClientPersistenceAdapter implements ClientPersistencePort {
   @Override
   public void deleteClient(String documentNumber) {
     clientRepository.deleteByDocumentNumber(documentNumber);
+  }
+
+  @Override
+  public List<Client> findAll() {
+    return clientEntityMapper.clientEntitiesToClients(clientRepository.findAll());
   }
 }

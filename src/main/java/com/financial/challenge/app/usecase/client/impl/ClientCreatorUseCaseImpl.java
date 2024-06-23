@@ -1,13 +1,11 @@
 package com.financial.challenge.app.usecase.client.impl;
 
-import java.util.Optional;
-
 import org.springframework.stereotype.Service;
 
 import com.financial.challenge.app.dto.client.request.CreateClientRequest;
 import com.financial.challenge.app.dto.client.response.ClientResponse;
-import com.financial.challenge.app.mapper.ClientResponseMapper;
 import com.financial.challenge.app.mapper.ClientRequestMapper;
+import com.financial.challenge.app.mapper.ClientResponseMapper;
 import com.financial.challenge.app.usecase.client.ClientCreatorUseCase;
 import com.financial.challenge.domain.model.Client;
 import com.financial.challenge.domain.service.ClientService;
@@ -24,13 +22,18 @@ public class ClientCreatorUseCaseImpl implements ClientCreatorUseCase {
 
   @Override
   public ClientResponse createClient(CreateClientRequest request) throws Exception {
-    Optional<Client> client = clientService.getClient(request.getDocumentNumber());
-    if (client.isEmpty()) {
+    try {
+      validateIfClientExist(request.getDocumentNumber());
+    } catch (Exception e) {
       Client clientMapped = clientRequestMapper.toClient(request);
       Client response = clientService.createClient(clientMapped);
       return clientResponseMapper.toClientResponse(response);
     }
     throw new Exception(
         String.format("Client with document %s already exist", request.getDocumentNumber()));
+  }
+
+  private void validateIfClientExist(String documentNumber) throws Exception {
+    clientService.getClient(documentNumber);
   }
 }

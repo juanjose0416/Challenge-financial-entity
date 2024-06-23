@@ -1,6 +1,7 @@
 package com.financial.challenge.domain.service.impl;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
@@ -25,8 +26,12 @@ public class ClientServiceImpl implements ClientService {
   }
 
   @Override
-  public Optional<Client> getClient(String documentNumber) {
-    return clientPersistencePort.getClientByDocumentNumber(documentNumber);
+  public Client getClient(String documentNumber) throws Exception {
+    Optional<Client> client = clientPersistencePort.getClientByDocumentNumber(documentNumber);
+    if(client.isPresent()){
+      return client.get();
+    }
+    throw new Exception(String.format("Client with document %s doesn't exist", documentNumber));
   }
 
   @Override
@@ -39,4 +44,10 @@ public class ClientServiceImpl implements ClientService {
   public void deleteClient(String documentNumber) {
     clientPersistencePort.deleteClient(documentNumber);
   }
+
+  @Override
+  public List<Client> getAll() {
+    return clientPersistencePort.findAll();
+  }
+
 }
