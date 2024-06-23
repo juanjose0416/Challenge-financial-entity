@@ -7,7 +7,6 @@ import com.financial.challenge.domain.util.enums.AccountTypeEnum;
 import com.financial.challenge.domain.util.enums.StatusEnum;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 
 @Data
@@ -35,8 +34,8 @@ public class Account {
   }
 
   public void cancel() throws Exception {
-    if (!this.balance.equals(BigDecimal.ZERO)) {
-      throw new Exception("Current account can't be cancelled");
+    if (this.balance.compareTo(BigDecimal.ZERO) != 0) {
+      throw new Exception("Current account can only be cancelled with zero balance");
     }
     this.status = StatusEnum.CANCELLED;
     this.updatedAt = LocalDateTime.now();
