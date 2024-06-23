@@ -8,25 +8,32 @@ import com.financial.challenge.domain.util.enums.StatusEnum;
 
 public class SavingAccount extends Account {
 
-
   public SavingAccount(
-          Long id,
-          AccountTypeEnum accountTypeEnum,
-          String accountNumber,
-          StatusEnum status,
-          BigDecimal balance,
-          boolean isGMF,
-          LocalDateTime createdAt,
-          LocalDateTime updatedAt,
-          Client client) {
+      Long id,
+      AccountTypeEnum accountTypeEnum,
+      String accountNumber,
+      StatusEnum status,
+      BigDecimal balance,
+      boolean isGMF,
+      LocalDateTime createdAt,
+      LocalDateTime updatedAt,
+      Client client) {
     super(id, accountTypeEnum, accountNumber, status, balance, isGMF, createdAt, updatedAt, client);
     validateBalance();
   }
 
-  public void validateBalance(){
-    if (this.balance.compareTo(BigDecimal.ZERO) < 0){
+  public void validateBalance() {
+    if (this.balance.compareTo(BigDecimal.ZERO) < 0) {
       throw new IllegalArgumentException("Balance lees than 0");
     }
   }
 
+  @Override
+  public void withdraw(BigDecimal amount) throws Exception {
+    if (this.balance.compareTo(amount) < 0) {
+      throw new Exception("Insufficient funds");
+    }
+    this.balance = this.balance.subtract(amount);
+    this.updatedAt = LocalDateTime.now();
+  }
 }

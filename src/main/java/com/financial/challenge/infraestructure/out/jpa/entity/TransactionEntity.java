@@ -3,6 +3,7 @@ package com.financial.challenge.infraestructure.out.jpa.entity;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+import com.financial.challenge.domain.util.enums.TransactionStatusEnum;
 import com.financial.challenge.domain.util.enums.TransactionTypeEnum;
 
 import jakarta.persistence.Column;
@@ -32,13 +33,20 @@ public class TransactionEntity {
   @Column(name = "amount", precision = 10, scale = 2, nullable = false)
   private BigDecimal amount;
 
+  @Column(name = "gmf", precision = 10, scale = 2, nullable = false)
+  private BigDecimal gmf;
+
   @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "origin_account_id", nullable = false)
+  @JoinColumn(name = "origin_account_id")
   private AccountEntity originAccount;
 
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "destination_account_id")
   private AccountEntity destinationAccount;
+
+  @Enumerated(EnumType.STRING)
+  @Column(name = "transaction_type", nullable = false)
+  private TransactionStatusEnum status;
 
   @Column(name = "created_at")
   private LocalDateTime createdAt;
@@ -65,6 +73,22 @@ public class TransactionEntity {
 
   public void setAmount(BigDecimal amount) {
     this.amount = amount;
+  }
+
+  public BigDecimal getGmf() {
+    return gmf;
+  }
+
+  public void setGmf(BigDecimal gmf) {
+    this.gmf = gmf;
+  }
+
+  public TransactionStatusEnum getStatus() {
+    return status;
+  }
+
+  public void setStatus(TransactionStatusEnum status) {
+    this.status = status;
   }
 
   public AccountEntity getOriginAccount() {

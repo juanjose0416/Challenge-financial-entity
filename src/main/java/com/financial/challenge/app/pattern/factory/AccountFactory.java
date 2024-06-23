@@ -1,4 +1,4 @@
-package com.financial.challenge.app.factory;
+package com.financial.challenge.app.pattern.factory;
 
 import com.financial.challenge.domain.model.Account;
 import com.financial.challenge.domain.model.Client;

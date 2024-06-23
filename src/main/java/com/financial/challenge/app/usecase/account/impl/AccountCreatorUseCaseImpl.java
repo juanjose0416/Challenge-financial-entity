@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 
 import com.financial.challenge.app.dto.account.request.CreateAccountRequest;
 import com.financial.challenge.app.dto.account.response.AccountResponse;
-import com.financial.challenge.app.factory.AccountFactory;
+import com.financial.challenge.app.pattern.factory.AccountFactory;
 import com.financial.challenge.app.mapper.AccountResponseMapper;
 import com.financial.challenge.app.usecase.account.AccountCreatorUseCase;
 import com.financial.challenge.domain.model.Account;
@@ -32,7 +32,7 @@ public class AccountCreatorUseCaseImpl implements AccountCreatorUseCase {
   public AccountResponse createAccount(CreateAccountRequest request) throws Exception {
     Client client = clientService.getClientById(request.getClientId());
     Account account = initAccount(request, client);
-    return accountResponseMapper.accountToAccountResponse(accountService.createAccount(account));
+    return accountResponseMapper.accountToAccountResponse(accountService.save(account));
   }
 
   private Account initAccount(CreateAccountRequest request, Client client) {

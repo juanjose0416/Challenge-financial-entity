@@ -11,14 +11,14 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class Account {
+public abstract class Account {
 
   protected Long id;
   protected AccountTypeEnum accountType;
   protected String accountNumber;
   protected StatusEnum status;
   protected BigDecimal balance;
-  protected boolean isGMF;
+  protected boolean isGMFFree;
   protected LocalDateTime createdAt;
   protected LocalDateTime updatedAt;
   protected Client client;
@@ -39,5 +39,26 @@ public class Account {
     }
     this.status = StatusEnum.CANCELLED;
     this.updatedAt = LocalDateTime.now();
+  }
+
+  public void deposit(BigDecimal amount) {
+    this.balance = this.balance.add(amount);
+    this.updatedAt = LocalDateTime.now();
+  }
+
+  public abstract void withdraw(BigDecimal amount) throws Exception;
+
+  public void transfer(Account targetAccount, BigDecimal amount) throws Exception {
+    BigDecimal gmf = calculateGMF(amount);
+    this.withdraw(amount.add(gmf));
+    targetAccount.deposit(amount);
+  }
+
+  public BigDecimal calculateGMF(BigDecimal amount) {
+    if (!this.isGMFFree()) {
+      return amount.multiply(BigDecimal.valueOf(0.004));
+    } else {
+      return BigDecimal.ZERO;
+    }
   }
 }

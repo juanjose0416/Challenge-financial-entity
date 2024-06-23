@@ -16,21 +16,15 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class AccountResponse {
 
-    @JsonProperty
-    private AccountTypeEnum accountType;
+  @JsonProperty private AccountTypeEnum accountType;
 
-    @JsonProperty
-    private String accountNumber;
+  @JsonProperty private String accountNumber;
 
-    @JsonProperty
-    private StatusEnum status;
+  @JsonProperty private StatusEnum status;
 
-    @JsonProperty
-    private BigDecimal balance;
+  @JsonProperty private BigDecimal balance;
 
-    @JsonProperty
-    private boolean isGMF;
+  @JsonProperty private boolean isGMF;
 
-    @JsonProperty
-    private LocalDateTime createdAt;
+  @JsonProperty private LocalDateTime createdAt;
 }

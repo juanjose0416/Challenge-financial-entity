@@ -23,4 +23,10 @@ public class CurrentAccount extends Account {
       Client client) {
     super(id, accountTypeEnum, accountNumber, status, balance, isGMF, createdAt, updatedAt, client);
   }
+
+  @Override
+  public void withdraw(BigDecimal amount) {
+    this.balance = this.balance.subtract(amount);
+    this.updatedAt = LocalDateTime.now();
+  }
 }

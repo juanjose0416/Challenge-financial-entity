@@ -14,4 +14,6 @@ public interface AccountPersistencePort {
   void deleteById(Long accountId);
 
   List<Account> getAll();
+
+  Optional<Account> getAccount(String accountNumber);
 }

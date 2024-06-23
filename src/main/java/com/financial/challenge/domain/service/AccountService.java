@@ -6,7 +6,7 @@ import com.financial.challenge.domain.model.Account;
 
 public interface AccountService {
 
-  Account createAccount(Account account);
+  Account save(Account account);
 
   Account getAccountById(Long accountId) throws Exception;
 
@@ -15,4 +15,6 @@ public interface AccountService {
   void delete(Long accountId);
 
   List<Account> getAll();
+
+  Account getAccount(String numberAccount) throws Exception;
 }

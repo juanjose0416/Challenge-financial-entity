@@ -43,4 +43,10 @@ public class AccountPersistenceAdapter implements AccountPersistencePort {
   public List<Account> getAll() {
     return accountEntityMapper.accountEntitiesToAccounts(accountRepository.findAll());
   }
+
+  @Override
+  public Optional<Account> getAccount(String accountNumber) {
+    return accountRepository.findByAccountNumber(accountNumber).map(accountEntityMapper::accountEntityToAccount);
+  }
+
 }

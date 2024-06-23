@@ -1,4 +1,4 @@
-package com.financial.challenge.app.factory;
+package com.financial.challenge.app.pattern.factory;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -7,23 +7,23 @@ import org.springframework.stereotype.Component;
 
 import com.financial.challenge.domain.model.Account;
 import com.financial.challenge.domain.model.Client;
-import com.financial.challenge.domain.model.SavingAccount;
+import com.financial.challenge.domain.model.CurrentAccount;
 import com.financial.challenge.domain.util.enums.AccountTypeEnum;
 import com.financial.challenge.domain.util.enums.StatusEnum;
 import com.financial.challenge.domain.util.generator.AccountNumberGenerator;
 
-@Component("SavingAccountFactory")
-public class SavingAccountFactory implements AccountFactory {
+@Component("CurrentAccountFactory")
+public class CurrentAccountFactory implements AccountFactory {
 
-  private static final String PREFIX = "53";
+  private static final String PREFIX = "33";
 
   @Override
   public Account create(Boolean isGMF, Client client) {
-    return new SavingAccount(
+    return new CurrentAccount(
         null,
-        AccountTypeEnum.SAVING_ACCOUNT,
+        AccountTypeEnum.CURRENT_ACCOUNT,
         PREFIX + AccountNumberGenerator.generateNumber(),
-        StatusEnum.ACTIVE,
+        StatusEnum.INACTIVE,
         BigDecimal.ZERO,
         isGMF,
         LocalDateTime.now(),
