@@ -4,10 +4,10 @@ import org.springframework.stereotype.Service;
 
 import com.financial.challenge.app.dto.client.request.CreateClientRequest;
 import com.financial.challenge.app.dto.client.response.ClientResponse;
-import com.financial.challenge.app.exception.ClientException;
 import com.financial.challenge.app.mapper.ClientRequestMapper;
 import com.financial.challenge.app.mapper.ClientResponseMapper;
 import com.financial.challenge.app.usecase.client.ClientCreatorUseCase;
+import com.financial.challenge.domain.exception.ClientException;
 import com.financial.challenge.domain.model.Client;
 import com.financial.challenge.domain.service.ClientService;
 

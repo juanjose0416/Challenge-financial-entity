@@ -1,11 +1,9 @@
 package com.financial.challenge.app.usecase.client.impl;
 
-import java.util.Optional;
-
 import org.springframework.stereotype.Service;
 
-import com.financial.challenge.app.exception.ClientException;
 import com.financial.challenge.app.usecase.client.ClientDeleterUseCase;
+import com.financial.challenge.domain.exception.ClientException;
 import com.financial.challenge.domain.model.Client;
 import com.financial.challenge.domain.service.ClientService;
 
@@ -18,7 +16,7 @@ public class ClientDeleterUseCaseImpl implements ClientDeleterUseCase {
   private final ClientService clientService;
 
   @Override
-  public void deleteClient(Long clientId) throws Exception {
+  public void deleteClient(Long clientId) {
     Client client = clientService.getClientById(clientId);
     deleteClientIfIsValid(client);
   }
