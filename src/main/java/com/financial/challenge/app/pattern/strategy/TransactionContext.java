@@ -13,7 +13,7 @@ public class TransactionContext {
     this.transactionStrategy = transactionStrategy;
   }
 
-  public void executeStrategy(Account sourceAccount, BigDecimal amount, Account targetAccount) throws Exception {
+  public void executeStrategy(Account sourceAccount, BigDecimal amount, Account targetAccount) {
     transactionStrategy.execute(sourceAccount, amount, targetAccount);
   }
 }

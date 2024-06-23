@@ -19,7 +19,7 @@ public class AccountSelectorUseCaseImpl implements AccountSelectorUseCase {
   private final AccountService accountService;
 
   @Override
-  public AccountResponse getAccount(Long accountId) throws Exception {
+  public AccountResponse getAccount(Long accountId) {
     return accountResponseMapper.accountToAccountResponse(accountService.getAccountById(accountId));
   }
 

@@ -29,7 +29,7 @@ public class AccountCreatorUseCaseImpl implements AccountCreatorUseCase {
   private static final String SAVING_ACCOUNT_FACTORY = "SavingAccountFactory";
 
   @Override
-  public AccountResponse createAccount(CreateAccountRequest request) throws Exception {
+  public AccountResponse createAccount(CreateAccountRequest request) {
     Client client = clientService.getClientById(request.getClientId());
     Account account = initAccount(request, client);
     return accountResponseMapper.accountToAccountResponse(accountService.save(account));

@@ -8,7 +8,7 @@ public interface AccountService {
 
   Account save(Account account);
 
-  Account getAccountById(Long accountId) throws Exception;
+  Account getAccountById(Long accountId);
 
   void updateAccount(Account account);
 
@@ -16,5 +16,5 @@ public interface AccountService {
 
   List<Account> getAll();
 
-  Account getAccount(String numberAccount) throws Exception;
+  Account getAccount(String numberAccount);
 }

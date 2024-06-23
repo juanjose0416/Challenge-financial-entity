@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import com.financial.challenge.domain.exception.ClientException;
 import com.financial.challenge.domain.model.Client;
 import com.financial.challenge.domain.service.ClientService;
 import com.financial.challenge.domain.spi.ClientPersistencePort;
@@ -26,12 +27,12 @@ public class ClientServiceImpl implements ClientService {
   }
 
   @Override
-  public Client getClient(String documentNumber) throws Exception {
+  public Client getClient(String documentNumber) {
     Optional<Client> client = clientPersistencePort.getClientByDocumentNumber(documentNumber);
     if(client.isPresent()){
       return client.get();
     }
-    throw new Exception(String.format("Client with document %s doesn't exist", documentNumber));
+    throw new ClientException(String.format("Client with document %s doesn't exist", documentNumber));
   }
 
   @Override
@@ -51,12 +52,12 @@ public class ClientServiceImpl implements ClientService {
   }
 
   @Override
-  public Client getClientById(Long clientId) throws Exception {
+  public Client getClientById(Long clientId) {
     Optional<Client> client = clientPersistencePort.getClientById(clientId);
     if(client.isPresent()){
       return client.get();
     }
-    throw new Exception(String.format("Client with id %s doesn't exist", clientId));
+    throw new ClientException(String.format("Client with id %s doesn't exist", clientId));
   }
 
 }

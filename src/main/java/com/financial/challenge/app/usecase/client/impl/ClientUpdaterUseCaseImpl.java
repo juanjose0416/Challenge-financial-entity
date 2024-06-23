@@ -18,7 +18,7 @@ public class ClientUpdaterUseCaseImpl implements ClientUpdaterUseCase {
   private final ClientRequestMapper clientRequestMapper;
 
   @Override
-  public void updateClient(UpdateClientRequest request, Long clientId) throws Exception {
+  public void updateClient(UpdateClientRequest request, Long clientId) {
     Client client = clientService.getClientById(clientId);
     Client clientMapped = clientRequestMapper.toClient(request);
     clientMapped.setId(client.getId());

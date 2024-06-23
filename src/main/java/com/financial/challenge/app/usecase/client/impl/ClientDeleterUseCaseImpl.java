@@ -4,6 +4,7 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import com.financial.challenge.app.exception.ClientException;
 import com.financial.challenge.app.usecase.client.ClientDeleterUseCase;
 import com.financial.challenge.domain.model.Client;
 import com.financial.challenge.domain.service.ClientService;
@@ -22,11 +23,11 @@ public class ClientDeleterUseCaseImpl implements ClientDeleterUseCase {
     deleteClientIfIsValid(client);
   }
 
-  private void deleteClientIfIsValid(Client client) throws Exception {
+  private void deleteClientIfIsValid(Client client) {
     if (client.getAccounts().isEmpty()) {
       clientService.deleteClient(client.getDocumentNumber());
     } else {
-      throw new Exception(
+      throw new ClientException(
           String.format(
               "Client with document %s has accounts associated", client.getDocumentNumber()));
     }

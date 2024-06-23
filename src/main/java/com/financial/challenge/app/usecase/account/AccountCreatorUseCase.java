@@ -5,5 +5,5 @@ import com.financial.challenge.app.dto.account.response.AccountResponse;
 
 public interface AccountCreatorUseCase {
 
-    AccountResponse createAccount(CreateAccountRequest request) throws Exception;
+    AccountResponse createAccount(CreateAccountRequest request);
 }

@@ -8,7 +8,7 @@ import com.financial.challenge.domain.model.Client;
 public interface ClientService {
   Client createClient(Client client);
 
-  Client getClient(String documentNumber) throws Exception;
+  Client getClient(String documentNumber);
 
   void updateClient(Client client);
 
@@ -16,6 +16,6 @@ public interface ClientService {
 
   List<Client> getAll();
 
-  Client getClientById(Long clientId) throws Exception;
+  Client getClientById(Long clientId);
 
 }

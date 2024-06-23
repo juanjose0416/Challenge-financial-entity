@@ -5,7 +5,7 @@ import java.util.List;
 import com.financial.challenge.app.dto.account.response.AccountResponse;
 
 public interface AccountSelectorUseCase {
-  AccountResponse getAccount(Long accountId) throws Exception;
+  AccountResponse getAccount(Long accountId);
 
   List<AccountResponse> getAll();
 }

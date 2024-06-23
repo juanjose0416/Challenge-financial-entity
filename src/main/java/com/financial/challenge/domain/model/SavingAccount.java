@@ -3,6 +3,7 @@ package com.financial.challenge.domain.model;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+import com.financial.challenge.domain.exception.AccountException;
 import com.financial.challenge.domain.util.enums.AccountTypeEnum;
 import com.financial.challenge.domain.util.enums.StatusEnum;
 
@@ -29,9 +30,9 @@ public class SavingAccount extends Account {
   }
 
   @Override
-  public void withdraw(BigDecimal amount) throws Exception {
+  public void withdraw(BigDecimal amount) throws AccountException {
     if (this.balance.compareTo(amount) < 0) {
-      throw new Exception("Insufficient funds");
+      throw new AccountException("Insufficient funds");
     }
     this.balance = this.balance.subtract(amount);
     this.updatedAt = LocalDateTime.now();

@@ -19,7 +19,7 @@ public class ClientSelectorUseCaseImpl implements ClientSelectorUseCase {
   private final ClientResponseMapper clientResponseMapper;
 
   @Override
-  public ClientResponse getClient(Long clientId) throws Exception {
+  public ClientResponse getClient(Long clientId) {
     return clientResponseMapper.toClientResponse(clientService.getClientById(clientId));
   }
 

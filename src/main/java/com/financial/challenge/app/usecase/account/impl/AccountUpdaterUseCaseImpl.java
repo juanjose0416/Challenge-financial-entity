@@ -17,13 +17,13 @@ public class AccountUpdaterUseCaseImpl implements AccountUpdaterUseCase {
   private final AccountService accountService;
 
   @Override
-  public void updateAccount(UpdateAccountRequest request, Long accountId) throws Exception {
+  public void updateAccount(UpdateAccountRequest request, Long accountId) {
     Account account = accountService.getAccountById(accountId);
     updateStatus(request.getStatus(), account);
     accountService.updateAccount(account);
   }
 
-  private void updateStatus(StatusEnum status, Account account) throws Exception {
+  private void updateStatus(StatusEnum status, Account account) {
     if (StatusEnum.ACTIVE.equals(status)) {
       account.activate();
     } else if (StatusEnum.INACTIVE.equals(status)) {

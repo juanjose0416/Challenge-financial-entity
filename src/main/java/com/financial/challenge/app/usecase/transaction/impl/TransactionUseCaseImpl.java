@@ -43,7 +43,7 @@ public class TransactionUseCaseImpl implements TransactionUseCase {
   }
 
   @Override
-  public TransactionResponse deposit(DepositRequest depositRequest) throws Exception {
+  public TransactionResponse deposit(DepositRequest depositRequest) {
     Account account = accountService.getAccount(depositRequest.getDestinationAccount());
     transactionContext.setTransactionStrategy(new DepositStrategy());
     transactionContext.executeStrategy(account, depositRequest.getAmount(), null);
@@ -56,7 +56,7 @@ public class TransactionUseCaseImpl implements TransactionUseCase {
   }
 
   @Override
-  public TransactionResponse withdraw(DepositRequest request) throws Exception {
+  public TransactionResponse withdraw(DepositRequest request) {
     Account account = accountService.getAccount(request.getDestinationAccount());
     Transaction.TransactionBuilder transaction =
         TransactionBuilder.buildTransaction(request.getAmount(), BigDecimal.ZERO, null, account);
@@ -73,7 +73,7 @@ public class TransactionUseCaseImpl implements TransactionUseCase {
   }
 
   @Override
-  public TransactionResponse transfer(TransactionRequest request) throws Exception {
+  public TransactionResponse transfer(TransactionRequest request) {
     Account originAccount = accountService.getAccount(request.getOriginAccount());
     Account destinationAccount = accountService.getAccount(request.getDestinationAccount());
     BigDecimal gmf = originAccount.calculateGMF(request.getAmount());

@@ -3,6 +3,7 @@ package com.financial.challenge.domain.model;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+import com.financial.challenge.domain.exception.AccountException;
 import com.financial.challenge.domain.util.enums.AccountTypeEnum;
 import com.financial.challenge.domain.util.enums.StatusEnum;
 
@@ -33,9 +34,9 @@ public abstract class Account {
     this.updatedAt = LocalDateTime.now();
   }
 
-  public void cancel() throws Exception {
+  public void cancel() throws AccountException {
     if (this.balance.compareTo(BigDecimal.ZERO) != 0) {
-      throw new Exception("Current account can only be cancelled with zero balance");
+      throw new AccountException("Current account can only be cancelled with zero balance");
     }
     this.status = StatusEnum.CANCELLED;
     this.updatedAt = LocalDateTime.now();
@@ -46,9 +47,9 @@ public abstract class Account {
     this.updatedAt = LocalDateTime.now();
   }
 
-  public abstract void withdraw(BigDecimal amount) throws Exception;
+  public abstract void withdraw(BigDecimal amount) throws AccountException ;
 
-  public void transfer(Account targetAccount, BigDecimal amount) throws Exception {
+  public void transfer(Account targetAccount, BigDecimal amount) {
     BigDecimal gmf = calculateGMF(amount);
     this.withdraw(amount.add(gmf));
     targetAccount.deposit(amount);

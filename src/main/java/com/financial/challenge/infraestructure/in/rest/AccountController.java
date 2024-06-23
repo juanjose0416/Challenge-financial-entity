@@ -40,30 +40,26 @@ public class AccountController {
       path = "",
       produces = MediaType.APPLICATION_JSON_VALUE,
       consumes = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<AccountResponse> createAccount(@RequestBody CreateAccountRequest request)
-      throws Exception {
+  public ResponseEntity<AccountResponse> createAccount(@RequestBody CreateAccountRequest request) {
     AccountResponse accountResponse = accountCreatorUseCase.createAccount(request);
     return ResponseEntity.status(HttpStatus.CREATED).body(accountResponse);
   }
 
   @PutMapping(path = "/{accountId}", consumes = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<Void> updateAccount(
-      @PathVariable("accountId") Long accountId, @RequestBody UpdateAccountRequest request)
-      throws Exception {
+      @PathVariable("accountId") Long accountId, @RequestBody UpdateAccountRequest request) {
     accountUpdaterUseCase.updateAccount(request, accountId);
     return ResponseEntity.status(HttpStatus.OK).build();
   }
 
   @DeleteMapping(path = "/{accountId}")
-  public ResponseEntity<Void> deleteAccount(@PathVariable("accountId") Long accountId)
-      throws Exception {
+  public ResponseEntity<Void> deleteAccount(@PathVariable("accountId") Long accountId) {
     accountDeleterUseCase.deleteAccount(accountId);
     return ResponseEntity.status(HttpStatus.OK).build();
   }
 
   @GetMapping(path = "/{accountId}", produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<AccountResponse> getAccount(@PathVariable("accountId") Long accountId)
-      throws Exception {
+  public ResponseEntity<AccountResponse> getAccount(@PathVariable("accountId") Long accountId) {
     AccountResponse accountResponse = accountSelectorUseCase.getAccount(accountId);
     return ResponseEntity.ok(accountResponse);
   }
