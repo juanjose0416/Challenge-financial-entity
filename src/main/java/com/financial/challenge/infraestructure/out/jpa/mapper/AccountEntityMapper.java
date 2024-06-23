@@ -1,12 +1,16 @@
 package com.financial.challenge.infraestructure.out.jpa.mapper;
 
+import java.util.List;
+
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.ReportingPolicy;
 import org.springframework.stereotype.Component;
 
 import com.financial.challenge.domain.model.Account;
+import com.financial.challenge.domain.model.Client;
 import com.financial.challenge.infraestructure.out.jpa.entity.AccountEntity;
+import com.financial.challenge.infraestructure.out.jpa.entity.ClientEntity;
 
 @Mapper(
         componentModel = "spring",
@@ -17,5 +21,8 @@ public interface AccountEntityMapper {
 
     @Mapping(source = "client", target = "client")
     Account accountEntityToAccount(AccountEntity entity);
+
+    @Mapping(source = "client", target = "client")
+    List<Account> accountEntitiesToAccounts(List<AccountEntity> accountEntities);
 
 }

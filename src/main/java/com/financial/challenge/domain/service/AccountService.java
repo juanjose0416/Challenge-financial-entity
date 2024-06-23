@@ -1,12 +1,18 @@
 package com.financial.challenge.domain.service;
 
+import java.util.List;
+
 import com.financial.challenge.domain.model.Account;
 
 public interface AccountService {
 
-    Account createAccount(Account account);
+  Account createAccount(Account account);
 
-    Account getAccountById(Long accountId) throws Exception;
+  Account getAccountById(Long accountId) throws Exception;
 
-    void updateAccount(Account account);
+  void updateAccount(Account account);
+
+  void delete(Long accountId);
+
+  List<Account> getAll();
 }

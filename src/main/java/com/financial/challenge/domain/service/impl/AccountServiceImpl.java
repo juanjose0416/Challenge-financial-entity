@@ -1,5 +1,6 @@
 package com.financial.challenge.domain.service.impl;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
@@ -34,4 +35,15 @@ public class AccountServiceImpl implements AccountService {
   public void updateAccount(Account account) {
     accountPersistencePort.save(account);
   }
+
+  @Override
+  public void delete(Long accountId) {
+    accountPersistencePort.deleteById(accountId);
+  }
+
+  @Override
+  public List<Account> getAll() {
+    return accountPersistencePort.getAll();
+  }
+
 }

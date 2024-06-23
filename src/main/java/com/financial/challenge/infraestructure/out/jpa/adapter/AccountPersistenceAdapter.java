@@ -1,5 +1,6 @@
 package com.financial.challenge.infraestructure.out.jpa.adapter;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Component;
@@ -31,5 +32,15 @@ public class AccountPersistenceAdapter implements AccountPersistencePort {
   @Override
   public Optional<Account> getAccountById(Long accountId) {
     return accountRepository.findById(accountId).map(accountEntityMapper::accountEntityToAccount);
+  }
+
+  @Override
+  public void deleteById(Long accountId) {
+    accountRepository.deleteById(accountId);
+  }
+
+  @Override
+  public List<Account> getAll() {
+    return accountEntityMapper.accountEntitiesToAccounts(accountRepository.findAll());
   }
 }

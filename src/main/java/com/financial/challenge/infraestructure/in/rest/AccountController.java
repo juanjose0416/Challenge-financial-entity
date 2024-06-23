@@ -1,8 +1,12 @@
 package com.financial.challenge.infraestructure.in.rest;
 
+import java.util.List;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -14,6 +18,8 @@ import com.financial.challenge.app.dto.account.request.CreateAccountRequest;
 import com.financial.challenge.app.dto.account.request.UpdateAccountRequest;
 import com.financial.challenge.app.dto.account.response.AccountResponse;
 import com.financial.challenge.app.usecase.account.AccountCreatorUseCase;
+import com.financial.challenge.app.usecase.account.AccountDeleterUseCase;
+import com.financial.challenge.app.usecase.account.AccountSelectorUseCase;
 import com.financial.challenge.app.usecase.account.AccountUpdaterUseCase;
 
 import jakarta.validation.Valid;
@@ -27,6 +33,8 @@ public class AccountController {
 
   private final AccountCreatorUseCase accountCreatorUseCase;
   private final AccountUpdaterUseCase accountUpdaterUseCase;
+  private final AccountDeleterUseCase accountDeleterUseCase;
+  private final AccountSelectorUseCase accountSelectorUseCase;
 
   @PostMapping(
       path = "",
@@ -40,8 +48,29 @@ public class AccountController {
 
   @PutMapping(path = "/{accountId}", consumes = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<Void> updateAccount(
-      @PathVariable("accountId") Long accountId, @RequestBody UpdateAccountRequest request) {
+      @PathVariable("accountId") Long accountId, @RequestBody UpdateAccountRequest request)
+      throws Exception {
     accountUpdaterUseCase.updateAccount(request, accountId);
     return ResponseEntity.status(HttpStatus.OK).build();
+  }
+
+  @DeleteMapping(path = "/{accountId}")
+  public ResponseEntity<Void> deleteAccount(@PathVariable("accountId") Long accountId)
+      throws Exception {
+    accountDeleterUseCase.deleteAccount(accountId);
+    return ResponseEntity.status(HttpStatus.OK).build();
+  }
+
+  @GetMapping(path = "/{accountId}", produces = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<AccountResponse> getAccount(@PathVariable("accountId") Long accountId)
+      throws Exception {
+    AccountResponse accountResponse = accountSelectorUseCase.getAccount(accountId);
+    return ResponseEntity.ok(accountResponse);
+  }
+
+  @GetMapping(path = "/all", produces = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<List<AccountResponse>> getAll() {
+    List<AccountResponse> accountResponse = accountSelectorUseCase.getAll();
+    return ResponseEntity.ok(accountResponse);
   }
 }
