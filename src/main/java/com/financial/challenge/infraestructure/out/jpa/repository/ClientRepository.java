@@ -11,4 +11,6 @@ import com.financial.challenge.infraestructure.out.jpa.entity.ClientEntity;
 public interface ClientRepository extends JpaRepository<ClientEntity, Long> {
 
   Optional<ClientEntity> findByDocumentNumber(String documentNumber);
+
+  void deleteByDocumentNumber(String documentNumber);
 }

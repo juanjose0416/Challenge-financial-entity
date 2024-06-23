@@ -26,6 +26,17 @@ public class ClientServiceImpl implements ClientService {
 
   @Override
   public Optional<Client> getClient(String documentNumber) {
-    return clientPersistencePort.getClientById(documentNumber);
+    return clientPersistencePort.getClientByDocumentNumber(documentNumber);
+  }
+
+  @Override
+  public void updateClient(Client client) {
+    client.setUpdatedAt(LocalDateTime.now());
+    clientPersistencePort.save(client);
+  }
+
+  @Override
+  public void deleteClient(String documentNumber) {
+    clientPersistencePort.deleteClient(documentNumber);
   }
 }

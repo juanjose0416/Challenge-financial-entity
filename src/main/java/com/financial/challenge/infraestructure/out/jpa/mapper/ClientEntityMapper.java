@@ -15,16 +15,6 @@ import com.financial.challenge.infraestructure.out.jpa.entity.ClientEntity;
 @Component
 public interface ClientEntityMapper {
 
-    @Mappings({
-            @Mapping(source = "id", target = "id"),
-            @Mapping(source = "documentType", target = "documentType"),
-            @Mapping(source = "documentNumber", target = "documentNumber"),
-            @Mapping(source = "name", target = "name"),
-            @Mapping(source = "lastName", target = "lastName"),
-            @Mapping(source = "email", target = "email"),
-            @Mapping(source = "birthDate", target = "birthDate"),
-            @Mapping(source = "createdAt", target = "createdAt"),
-            @Mapping(source = "updatedAt", target = "updatedAt")
-    })
+    @Mapping(source = "accounts", target = "accounts")
     Client clientEntityToClient(ClientEntity clientEntity);
 }

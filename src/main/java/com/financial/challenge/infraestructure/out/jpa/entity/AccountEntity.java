@@ -3,7 +3,6 @@ package com.financial.challenge.infraestructure.out.jpa.entity;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-import com.financial.challenge.domain.model.Client;
 import com.financial.challenge.domain.util.enums.AccountTypeEnum;
 import com.financial.challenge.domain.util.enums.StatusEnum;
 
@@ -28,31 +27,31 @@ public class AccountEntity {
   private Long id;
 
   @Enumerated(EnumType.STRING)
-  @Column(name = "account_type")
+  @Column(name = "account_type", nullable = false)
   private AccountTypeEnum accountType;
 
   @Column(name = "account_number", unique = true, nullable = false)
   private String accountNumber;
 
   @Enumerated(EnumType.STRING)
-  @Column(name = "status")
+  @Column(name = "status", nullable = false)
   private StatusEnum status;
 
-  @Column(name = "balance", precision = 10, scale = 2)
+  @Column(name = "balance", precision = 10, scale = 2, nullable = false)
   private BigDecimal balance;
 
-  @Column(name = "is_gmf")
+  @Column(name = "is_gmf", nullable = false)
   private boolean isGMF;
 
-  @Column(name = "created_at")
+  @Column(name = "created_at", updatable = false, nullable = false)
   private LocalDateTime createdAt;
 
-  @Column(name = "updated_at")
+  @Column(name = "updated_at", nullable = false)
   private LocalDateTime updatedAt;
 
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "client_id", nullable = false)
-  private Client client;
+  private ClientEntity client;
 
   public Long getId() {
     return id;
@@ -118,11 +117,11 @@ public class AccountEntity {
     this.updatedAt = updatedAt;
   }
 
-  public Client getClient() {
+  public ClientEntity getClient() {
     return client;
   }
 
-  public void setClient(Client client) {
+  public void setClient(ClientEntity client) {
     this.client = client;
   }
 }

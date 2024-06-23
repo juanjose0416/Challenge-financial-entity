@@ -2,6 +2,8 @@ package com.financial.challenge.domain.model;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.financial.challenge.domain.util.enums.DocumentTypeEnum;
 
@@ -18,4 +20,5 @@ public class Client {
   private LocalDate birthDate;
   private LocalDateTime createdAt;
   private LocalDateTime updatedAt;
+  private List<Account> accounts = new ArrayList<>();
 }

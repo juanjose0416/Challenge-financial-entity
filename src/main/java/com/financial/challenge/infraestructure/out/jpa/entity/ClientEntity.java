@@ -2,9 +2,11 @@ package com.financial.challenge.infraestructure.out.jpa.entity;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 import com.financial.challenge.domain.util.enums.DocumentTypeEnum;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -12,6 +14,7 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -23,29 +26,33 @@ public class ClientEntity {
   private Long id;
 
   @Enumerated(EnumType.STRING)
-  @Column(name = "document_type")
+  @Column(name = "document_type", nullable = false)
   private DocumentTypeEnum documentType;
 
   @Column(name = "document_number", unique = true, nullable = false)
   private String documentNumber;
 
-  @Column(name = "name")
+  @Column(name = "name", nullable = false)
   private String name;
 
-  @Column(name = "last_name")
+  @Column(name = "last_name", nullable = false)
   private String lastName;
 
-  @Column(name = "email")
+  @Column(name = "email", nullable = true)
   private String email;
 
-  @Column(name = "birth_date")
+  @Column(name = "birth_date", nullable = false)
   private LocalDate birthDate;
 
-  @Column(name = "created_at")
+  @Column(name = "created_at", nullable = false)
   private LocalDateTime createdAt;
 
-  @Column(name = "updated_at")
+  @Column(name = "updated_at", nullable = false)
   private LocalDateTime updatedAt;
+
+  @OneToMany(mappedBy = "client", cascade = CascadeType.ALL, orphanRemoval = true)
+  private List<AccountEntity> accounts;
+
 
   public Long getId() {
     return id;
@@ -118,4 +125,13 @@ public class ClientEntity {
   public void setUpdatedAt(LocalDateTime updatedAt) {
     this.updatedAt = updatedAt;
   }
+
+  public List<AccountEntity> getAccounts() {
+    return accounts;
+  }
+
+  public void setAccounts(List<AccountEntity> accounts) {
+    this.accounts = accounts;
+  }
+
 }

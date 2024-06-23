@@ -8,5 +8,7 @@ public interface ClientPersistencePort {
 
   Client save(Client client);
 
-  Optional<Client> getClientById(String documentNumber);
+  Optional<Client> getClientByDocumentNumber(String documentNumber);
+
+  void  deleteClient(String documentNumber);
 }

@@ -24,14 +24,19 @@ public class ClientPersistenceAdapter implements ClientPersistencePort {
   @Override
   public Client save(Client client) {
     ClientEntity clientEntity = clientMapper.clientToClientEntity(client);
-    ClientEntity clientCreated = clientRepository.save(clientEntity);
-    return clientEntityMapper.clientEntityToClient(clientCreated);
+    ClientEntity clientBd = clientRepository.save(clientEntity);
+    return clientEntityMapper.clientEntityToClient(clientBd);
   }
 
   @Override
-  public Optional<Client> getClientById(String documentNumber) {
+  public Optional<Client> getClientByDocumentNumber(String documentNumber) {
     Optional<ClientEntity> clientEntityOptional =
         clientRepository.findByDocumentNumber(documentNumber);
     return clientEntityOptional.map(clientEntityMapper::clientEntityToClient);
+  }
+
+  @Override
+  public void deleteClient(String documentNumber) {
+    clientRepository.deleteByDocumentNumber(documentNumber);
   }
 }

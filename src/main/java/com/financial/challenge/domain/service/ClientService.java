@@ -8,4 +8,8 @@ public interface ClientService {
   Client createClient(Client client);
 
   Optional<Client> getClient(String documentNumber);
+
+  void updateClient(Client client);
+
+  void deleteClient(String documentNumber);
 }

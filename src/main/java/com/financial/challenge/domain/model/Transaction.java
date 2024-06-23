@@ -13,7 +13,7 @@ public class Transaction {
   private Long id;
   private TransactionTypeEnum transactionType;
   private BigDecimal amount;
-  private String originAccount;
-  private String destinationAccount;
+  private Account originAccount;
+  private Account destinationAccount;
   private LocalDateTime createdAt;
 }

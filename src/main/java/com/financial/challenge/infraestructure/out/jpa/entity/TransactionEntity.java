@@ -9,9 +9,12 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -23,17 +26,19 @@ public class TransactionEntity {
   private Long id;
 
   @Enumerated(EnumType.STRING)
-  @Column(name = "transaction_type")
+  @Column(name = "transaction_type", nullable = false)
   private TransactionTypeEnum transactionType;
 
-  @Column(name = "amount", precision = 10, scale = 2)
+  @Column(name = "amount", precision = 10, scale = 2, nullable = false)
   private BigDecimal amount;
 
-  @Column(name = "origin_account")
-  private String originAccount;
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "origin_account_id", nullable = false)
+  private AccountEntity originAccount;
 
-  @Column(name = "destination_account")
-  private String destinationAccount;
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "destination_account_id")
+  private AccountEntity destinationAccount;
 
   @Column(name = "created_at")
   private LocalDateTime createdAt;
@@ -62,19 +67,19 @@ public class TransactionEntity {
     this.amount = amount;
   }
 
-  public String getOriginAccount() {
+  public AccountEntity getOriginAccount() {
     return originAccount;
   }
 
-  public void setOriginAccount(String originAccount) {
+  public void setOriginAccount(AccountEntity originAccount) {
     this.originAccount = originAccount;
   }
 
-  public String getDestinationAccount() {
+  public AccountEntity getDestinationAccount() {
     return destinationAccount;
   }
 
-  public void setDestinationAccount(String destinationAccount) {
+  public void setDestinationAccount(AccountEntity destinationAccount) {
     this.destinationAccount = destinationAccount;
   }
 
