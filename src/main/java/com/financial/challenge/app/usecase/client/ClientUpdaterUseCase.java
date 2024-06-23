@@ -4,5 +4,5 @@ import com.financial.challenge.app.dto.client.request.UpdateClientRequest;
 
 public interface ClientUpdaterUseCase {
 
-    void updateClient(UpdateClientRequest request) throws Exception;
+    void updateClient(UpdateClientRequest request, Long clientId) throws Exception;
 }

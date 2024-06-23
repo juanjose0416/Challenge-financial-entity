@@ -19,8 +19,8 @@ public class ClientSelectorUseCaseImpl implements ClientSelectorUseCase {
   private final ClientResponseMapper clientResponseMapper;
 
   @Override
-  public ClientResponse getClient(String documentNumber) throws Exception {
-    return clientResponseMapper.toClientResponse(clientService.getClient(documentNumber));
+  public ClientResponse getClient(Long clientId) throws Exception {
+    return clientResponseMapper.toClientResponse(clientService.getClientById(clientId));
   }
 
   @Override

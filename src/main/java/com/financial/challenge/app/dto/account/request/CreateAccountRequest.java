@@ -24,5 +24,5 @@ public class CreateAccountRequest {
 
   @NotBlank(message = "clientId can't be null")
   @JsonProperty
-  private String clientId;
+  private Long clientId;
 }

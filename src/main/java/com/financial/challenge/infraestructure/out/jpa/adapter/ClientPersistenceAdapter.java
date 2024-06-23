@@ -45,4 +45,9 @@ public class ClientPersistenceAdapter implements ClientPersistencePort {
   public List<Client> findAll() {
     return clientEntityMapper.clientEntitiesToClients(clientRepository.findAll());
   }
+
+  @Override
+  public Optional<Client> getClientById(Long clientId) {
+    return clientRepository.findById(clientId).map(clientEntityMapper::clientEntityToClient);
+  }
 }

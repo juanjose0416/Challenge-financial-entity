@@ -8,17 +8,18 @@ import com.financial.challenge.domain.util.enums.StatusEnum;
 
 public class SavingAccount extends Account {
 
-  private static final String PREFIX = "53";
 
   public SavingAccount(
-      Long id,
-      String accountNumber,
-      BigDecimal balance,
-      boolean isGMF,
-      LocalDateTime createdAt,
-      LocalDateTime updatedAt,
-      Client client) {
-    super(id, AccountTypeEnum.SAVING_ACCOUNT, PREFIX + accountNumber, StatusEnum.ACTIVE, balance, isGMF, createdAt, updatedAt, client);
+          Long id,
+          AccountTypeEnum accountTypeEnum,
+          String accountNumber,
+          StatusEnum status,
+          BigDecimal balance,
+          boolean isGMF,
+          LocalDateTime createdAt,
+          LocalDateTime updatedAt,
+          Client client) {
+    super(id, accountTypeEnum, accountNumber, status, balance, isGMF, createdAt, updatedAt, client);
     validateBalance();
   }
 

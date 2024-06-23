@@ -46,25 +46,25 @@ public class ClientController {
     return ResponseEntity.status(HttpStatus.CREATED).body(clientResponse);
   }
 
-  @PutMapping(path = "/{documentNumber}", consumes = MediaType.APPLICATION_JSON_VALUE)
+  @PutMapping(path = "/{clientId}", consumes = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<Void> updateClient(
-      @PathVariable("documentNumber") String documentNumber,
+      @PathVariable("documentNumber") Long clientId,
       @RequestBody UpdateClientRequest request)
       throws Exception {
-    clientUpdaterUseCase.updateClient(request);
+    clientUpdaterUseCase.updateClient(request, clientId);
     return ResponseEntity.status(HttpStatus.OK).build();
   }
 
-  @DeleteMapping(path = "/{documentNumber}")
-  public ResponseEntity<Void> deleteClient(@PathVariable("documentNumber") String documentNumber) throws Exception {
-    clientDeleterUseCase.deleteClient(documentNumber);
+  @DeleteMapping(path = "/{clientId}")
+  public ResponseEntity<Void> deleteClient(@PathVariable("clientId") Long clientId) throws Exception {
+    clientDeleterUseCase.deleteClient(clientId);
     return ResponseEntity.status(HttpStatus.OK).build();
   }
 
-  @GetMapping(path = "/{documentNumber}", produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<ClientResponse> getClient(@PathVariable("documentNumber") String documentNumber)
+  @GetMapping(path = "/{clientId}", produces = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<ClientResponse> getClient(@PathVariable("clientId") Long clientId)
           throws Exception {
-    ClientResponse clientResponse = clientSelectorUseCase.getClient(documentNumber);
+    ClientResponse clientResponse = clientSelectorUseCase.getClient(clientId);
     return ResponseEntity.status(HttpStatus.OK).body(clientResponse);
   }
 

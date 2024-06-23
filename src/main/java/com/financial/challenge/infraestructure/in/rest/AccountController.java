@@ -21,11 +21,15 @@ import lombok.AllArgsConstructor;
 @Valid
 public class AccountController {
 
-    private final AccountCreatorUseCase accountCreatorUseCase;
+  private final AccountCreatorUseCase accountCreatorUseCase;
 
-    @PostMapping(path = "", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<AccountResponse> createAccount(@RequestBody CreateAccountRequest request){
-        AccountResponse accountResponse = accountCreatorUseCase.createAccount();
-        return ResponseEntity.status(HttpStatus.CREATED).body(accountResponse);
-    }
+  @PostMapping(
+      path = "",
+      produces = MediaType.APPLICATION_JSON_VALUE,
+      consumes = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<AccountResponse> createAccount(@RequestBody CreateAccountRequest request)
+      throws Exception {
+    AccountResponse accountResponse = accountCreatorUseCase.createAccount(request);
+    return ResponseEntity.status(HttpStatus.CREATED).body(accountResponse);
+  }
 }

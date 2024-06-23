@@ -6,7 +6,7 @@ import com.financial.challenge.app.dto.client.response.ClientResponse;
 
 public interface ClientSelectorUseCase {
 
-    ClientResponse getClient(String documentNumber) throws Exception;
+    ClientResponse getClient(Long clientId) throws Exception;
 
     List<ClientResponse> getAll();
 }

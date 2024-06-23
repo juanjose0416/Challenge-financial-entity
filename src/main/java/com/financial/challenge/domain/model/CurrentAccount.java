@@ -6,21 +6,21 @@ import java.time.LocalDateTime;
 import com.financial.challenge.domain.util.enums.AccountTypeEnum;
 import com.financial.challenge.domain.util.enums.StatusEnum;
 
+import lombok.Builder;
+
 public class CurrentAccount extends Account {
 
-  private static final String PREFIX = "33";
-
+  @Builder
   public CurrentAccount(
-      Long id, String accountNumber, BigDecimal balance, boolean isGMF, Client client) {
-    super(
-        id,
-        AccountTypeEnum.CURRENT_ACCOUNT,
-        PREFIX + accountNumber,
-        StatusEnum.INACTIVE,
-        balance,
-        isGMF,
-        LocalDateTime.now(),
-        LocalDateTime.now(),
-        client);
+      Long id,
+      AccountTypeEnum accountTypeEnum,
+      String accountNumber,
+      StatusEnum status,
+      BigDecimal balance,
+      boolean isGMF,
+      LocalDateTime createdAt,
+      LocalDateTime updatedAt,
+      Client client) {
+    super(id, accountTypeEnum, accountNumber, status, balance, isGMF, createdAt, updatedAt, client);
   }
 }

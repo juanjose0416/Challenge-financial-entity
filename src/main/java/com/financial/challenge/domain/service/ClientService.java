@@ -15,4 +15,7 @@ public interface ClientService {
   void deleteClient(String documentNumber);
 
   List<Client> getAll();
+
+  Client getClientById(Long clientId) throws Exception;
+
 }

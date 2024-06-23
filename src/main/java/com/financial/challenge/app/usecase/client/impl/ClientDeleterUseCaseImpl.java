@@ -17,8 +17,8 @@ public class ClientDeleterUseCaseImpl implements ClientDeleterUseCase {
   private final ClientService clientService;
 
   @Override
-  public void deleteClient(String documentNumber) throws Exception {
-    Client client = clientService.getClient(documentNumber);
+  public void deleteClient(Long clientId) throws Exception {
+    Client client = clientService.getClientById(clientId);
     deleteClientIfIsValid(client);
   }
 

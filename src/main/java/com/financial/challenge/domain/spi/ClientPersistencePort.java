@@ -14,4 +14,6 @@ public interface ClientPersistencePort {
   void  deleteClient(String documentNumber);
 
   List<Client> findAll();
+
+  Optional<Client> getClientById(Long clientId);
 }

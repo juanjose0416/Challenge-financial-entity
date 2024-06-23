@@ -18,11 +18,10 @@ public class ClientUpdaterUseCaseImpl implements ClientUpdaterUseCase {
   private final ClientRequestMapper clientRequestMapper;
 
   @Override
-  public void updateClient(UpdateClientRequest request) throws Exception {
-    Client client = clientService.getClient(request.getDocumentNumber());
+  public void updateClient(UpdateClientRequest request, Long clientId) throws Exception {
+    Client client = clientService.getClientById(clientId);
     Client clientMapped = clientRequestMapper.toClient(request);
     clientMapped.setId(client.getId());
-    clientMapped.setCreatedAt(client.getCreatedAt());
     clientService.updateClient(clientMapped);
   }
 }

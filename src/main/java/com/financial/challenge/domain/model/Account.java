@@ -7,6 +7,7 @@ import com.financial.challenge.domain.util.enums.AccountTypeEnum;
 import com.financial.challenge.domain.util.enums.StatusEnum;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 
 @Data

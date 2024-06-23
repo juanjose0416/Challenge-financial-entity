@@ -50,4 +50,13 @@ public class ClientServiceImpl implements ClientService {
     return clientPersistencePort.findAll();
   }
 
+  @Override
+  public Client getClientById(Long clientId) throws Exception {
+    Optional<Client> client = clientPersistencePort.getClientById(clientId);
+    if(client.isPresent()){
+      return client.get();
+    }
+    throw new Exception(String.format("Client with id %s doesn't exist", clientId));
+  }
+
 }
