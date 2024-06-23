@@ -1,5 +1,7 @@
 package com.financial.challenge.app.usecase.client.impl;
 
+import java.util.Optional;
+
 import org.springframework.stereotype.Service;
 
 import com.financial.challenge.app.dto.client.request.UpdateClientRequest;
@@ -19,9 +21,20 @@ public class ClientUpdaterUseCaseImpl implements ClientUpdaterUseCase {
 
   @Override
   public void updateClient(UpdateClientRequest request, Long clientId) {
-    Client client = clientService.getClientById(clientId);
-    Client clientMapped = clientRequestMapper.toClient(request);
-    clientMapped.setId(client.getId());
-    clientService.updateClient(clientMapped);
+    Client existingClient = clientService.getClientById(clientId);
+    Client mappedClient = clientRequestMapper.toClient(request);
+    update(existingClient, mappedClient);
+    clientService.updateClient(existingClient);
+  }
+
+  private void update(Client existingClient, Client mappedClient) {
+    existingClient.setName(
+        Optional.ofNullable(mappedClient.getName()).orElse(existingClient.getName()));
+    existingClient.setLastName(
+        Optional.ofNullable(mappedClient.getLastName()).orElse(existingClient.getLastName()));
+    existingClient.setEmail(
+        Optional.ofNullable(mappedClient.getEmail()).orElse(existingClient.getEmail()));
+    existingClient.setBirthDate(
+        Optional.ofNullable(mappedClient.getBirthDate()).orElse(existingClient.getBirthDate()));
   }
 }
