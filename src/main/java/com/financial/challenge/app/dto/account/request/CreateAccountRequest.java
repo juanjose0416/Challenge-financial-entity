@@ -3,7 +3,6 @@ package com.financial.challenge.app.dto.account.request;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.financial.challenge.domain.util.enums.AccountTypeEnum;
 
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -22,7 +21,7 @@ public class CreateAccountRequest {
   @JsonProperty
   private Boolean isGMF;
 
-  @NotBlank(message = "clientId can't be null")
+  @NotNull(message = "clientId can't be null")
   @JsonProperty
   private Long clientId;
 }

@@ -4,7 +4,9 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
+import com.financial.challenge.domain.exception.AccountException;
 import com.financial.challenge.domain.model.Account;
 import com.financial.challenge.domain.model.Client;
 import com.financial.challenge.domain.spi.AccountPersistencePort;
@@ -18,6 +20,7 @@ import lombok.AllArgsConstructor;
 
 @Component
 @AllArgsConstructor
+@Transactional
 public class AccountPersistenceAdapter implements AccountPersistencePort {
 
   private final AccountRepository accountRepository;
@@ -42,8 +45,14 @@ public class AccountPersistenceAdapter implements AccountPersistencePort {
   }
 
   @Override
+  @Transactional
   public void deleteById(Long accountId) {
-    accountRepository.deleteById(accountId);
+    AccountEntity account =
+        accountRepository
+            .findById(accountId)
+            .orElseThrow(() -> new AccountException("Account not found"));
+    accountRepository.delete(account);
+    accountRepository.deleteAll();
   }
 
   @Override
@@ -60,6 +69,4 @@ public class AccountPersistenceAdapter implements AccountPersistencePort {
                 AccountFactoryImpl.buildAccount(
                     accountEntity, ClientBuilderImpl.toClient(accountEntity.getClient())));
   }
-
-
 }

@@ -5,7 +5,6 @@ import java.util.List;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.ReportingPolicy;
-import org.springframework.stereotype.Component;
 
 import com.financial.challenge.app.dto.account.response.AccountResponse;
 import com.financial.challenge.domain.model.Account;
@@ -21,6 +20,7 @@ public interface AccountResponseMapper {
   @Mapping(target = "status", source = "status")
   @Mapping(target = "balance", source = "balance")
   @Mapping(target = "createdAt", source = "createdAt")
+  @Mapping(target = "id", source = "id")
   AccountResponse accountToAccountResponse(Account account);
 
   List<AccountResponse> accountsToAccountResponses(List<Account> accounts);

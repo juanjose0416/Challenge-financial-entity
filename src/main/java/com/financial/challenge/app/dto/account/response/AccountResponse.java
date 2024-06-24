@@ -16,6 +16,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class AccountResponse {
 
+  @JsonProperty private Long id;
+
   @JsonProperty private AccountTypeEnum accountType;
 
   @JsonProperty private String accountNumber;

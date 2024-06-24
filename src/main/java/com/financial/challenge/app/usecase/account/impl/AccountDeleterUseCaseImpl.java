@@ -16,7 +16,8 @@ public class AccountDeleterUseCaseImpl implements AccountDeleterUseCase {
 
   @Override
   public void deleteAccount(Long accountId) {
-    accountService.getAccountById(accountId);
+    Account account = accountService.getAccountById(accountId);
+    account.cancel();
     accountService.delete(accountId);
   }
 }

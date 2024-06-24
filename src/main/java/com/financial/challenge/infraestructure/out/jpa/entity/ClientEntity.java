@@ -50,9 +50,8 @@ public class ClientEntity {
   @Column(name = "updated_at", nullable = false)
   private LocalDateTime updatedAt;
 
-  @OneToMany(mappedBy = "client", cascade = CascadeType.ALL, orphanRemoval = true)
+  @OneToMany(mappedBy = "client", cascade = CascadeType.REMOVE, orphanRemoval = true)
   private List<AccountEntity> accounts;
-
 
   public Long getId() {
     return id;
@@ -133,5 +132,4 @@ public class ClientEntity {
   public void setAccounts(List<AccountEntity> accounts) {
     this.accounts = accounts;
   }
-
 }
