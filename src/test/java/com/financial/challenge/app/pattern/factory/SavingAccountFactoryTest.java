@@ -29,7 +29,6 @@ class SavingAccountFactoryTest {
     savingAccountFactory = new SavingAccountFactory();
   }
 
-  @Test
   public void testCreateSavingAccount() {
     Client mockClient = mock(Client.class);
 

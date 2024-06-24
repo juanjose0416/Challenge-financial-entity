@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.financial.challenge.domain.model.Client;
 import com.financial.challenge.domain.util.enums.AccountTypeEnum;
 import com.financial.challenge.domain.util.enums.StatusEnum;
 
@@ -28,5 +29,9 @@ public class AccountResponse {
 
   @JsonProperty private boolean isGMFFree;
 
+  @JsonProperty private Client client;
+
   @JsonProperty private LocalDateTime createdAt;
+
+  @JsonProperty private LocalDateTime updatedAt;
 }

@@ -3,6 +3,8 @@ package com.financial.challenge.app.usecase.account.impl;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.math.BigDecimal;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -27,7 +29,7 @@ class AccountDeleterUseCaseImplTest {
   }
 
   @Test
-  public void testDeleteAccount() {
+  void testDeleteAccount() {
     when(accountService.getAccountById(ACCOUNT_ID)).thenReturn(createMockAccount());
 
     accountDeleterUseCase.deleteAccount(ACCOUNT_ID);
@@ -37,6 +39,6 @@ class AccountDeleterUseCaseImplTest {
   }
 
   private Account createMockAccount() {
-    return CurrentAccount.builder().build();
+    return CurrentAccount.builder().balance(BigDecimal.ZERO).build();
   }
 }

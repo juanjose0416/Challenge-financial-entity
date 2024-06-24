@@ -7,6 +7,7 @@ import com.financial.challenge.app.validator.ValidAge;
 import com.financial.challenge.domain.util.enums.DocumentTypeEnum;
 
 import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,6 +19,7 @@ public class UpdateClientRequest {
 
   @JsonProperty private DocumentTypeEnum documentType;
 
+  @Pattern(regexp = "\\d+", message = "documentNumber must be a number")
   @JsonProperty private String documentNumber;
 
   @JsonProperty private String name;

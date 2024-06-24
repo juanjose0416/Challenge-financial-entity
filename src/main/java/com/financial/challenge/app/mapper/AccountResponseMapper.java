@@ -21,6 +21,8 @@ public interface AccountResponseMapper {
   @Mapping(target = "balance", source = "balance")
   @Mapping(target = "createdAt", source = "createdAt")
   @Mapping(target = "id", source = "id")
+  @Mapping(target = "client", source = "client")
+  @Mapping(target = "updatedAt", source = "updatedAt")
   AccountResponse accountToAccountResponse(Account account);
 
   List<AccountResponse> accountsToAccountResponses(List<Account> accounts);

@@ -2,6 +2,8 @@ package com.financial.challenge.app.dto.client.request;
 
 import java.time.LocalDate;
 
+import org.springframework.format.annotation.NumberFormat;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.financial.challenge.app.validator.ValidAge;
 import com.financial.challenge.domain.util.enums.DocumentTypeEnum;
@@ -9,6 +11,7 @@ import com.financial.challenge.domain.util.enums.DocumentTypeEnum;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -23,6 +26,7 @@ public class CreateClientRequest {
   private DocumentTypeEnum documentType;
 
   @NotBlank(message = "documentNumber can't be null")
+  @Pattern(regexp = "\\d+", message = "Account ID must be a number")
   @JsonProperty
   private String documentNumber;
 
