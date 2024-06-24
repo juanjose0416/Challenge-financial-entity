@@ -29,4 +29,6 @@ public class TransactionResponse {
 
   @JsonProperty private LocalDateTime transactionDate;
 
+  @JsonProperty private String message;
+
 }

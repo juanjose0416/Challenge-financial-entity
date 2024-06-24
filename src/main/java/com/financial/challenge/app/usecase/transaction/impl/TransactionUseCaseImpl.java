@@ -46,46 +46,56 @@ public class TransactionUseCaseImpl implements TransactionUseCase {
   @Override
   public TransactionResponse deposit(DepositRequest depositRequest) {
     Account account = accountService.getAccount(depositRequest.getDestinationAccount());
-    validateIfAccountIsCancelled(account);
-    transactionContext.setTransactionStrategy(new DepositStrategy());
-    transactionContext.executeStrategy(account, depositRequest.getAmount(), null);
-    accountService.save(account);
     Transaction.TransactionBuilder transaction =
         TransactionBuilder.buildTransaction(
             depositRequest.getAmount(), BigDecimal.ZERO, null, account);
-    return saveTransaction(
-        TransactionTypeEnum.DEPOSIT, TransactionStatusEnum.SUCCESSFUL, transaction);
+    try {
+      validateIfAccountIsCancelled(account);
+      transactionContext.setTransactionStrategy(new DepositStrategy());
+      transactionContext.executeStrategy(account, depositRequest.getAmount(), null);
+      accountService.save(account);
+      return saveTransaction(
+          TransactionTypeEnum.DEPOSIT, TransactionStatusEnum.SUCCESSFUL, transaction);
+    } catch (Exception e) {
+      TransactionResponse response =
+          saveTransaction(TransactionTypeEnum.DEPOSIT, TransactionStatusEnum.FAILED, transaction);
+      response.setMessage(e.getMessage());
+      return response;
+    }
   }
 
   @Override
   public TransactionResponse withdraw(DepositRequest request) {
     Account account = accountService.getAccount(request.getDestinationAccount());
-    validateIfAccountIsCancelledOrInactive(account);
     Transaction.TransactionBuilder transaction =
         TransactionBuilder.buildTransaction(request.getAmount(), BigDecimal.ZERO, null, account);
     try {
+      validateIfAccountIsCancelledOrInactive(account);
       transactionContext.setTransactionStrategy(new WithDrawStrategy());
       transactionContext.executeStrategy(account, request.getAmount(), null);
       accountService.save(account);
       return saveTransaction(
           TransactionTypeEnum.WITHDRAWAL, TransactionStatusEnum.SUCCESSFUL, transaction);
     } catch (Exception e) {
-      saveTransaction(TransactionTypeEnum.WITHDRAWAL, TransactionStatusEnum.FAILED, transaction);
-      throw new TransactionException(e.getMessage());
+      TransactionResponse response =
+          saveTransaction(
+              TransactionTypeEnum.WITHDRAWAL, TransactionStatusEnum.FAILED, transaction);
+      response.setMessage(e.getMessage());
+      return response;
     }
   }
 
   @Override
   public TransactionResponse transfer(TransactionRequest request) {
     Account originAccount = accountService.getAccount(request.getOriginAccount());
-    validateIfAccountIsCancelledOrInactive(originAccount);
     Account destinationAccount = accountService.getAccount(request.getDestinationAccount());
-    validateIfAccountIsCancelled(destinationAccount);
     BigDecimal gmf = originAccount.calculateGMF(request.getAmount());
     Transaction.TransactionBuilder transaction =
         TransactionBuilder.buildTransaction(
             request.getAmount(), gmf, originAccount, destinationAccount);
     try {
+      validateIfAccountIsCancelledOrInactive(originAccount);
+      validateIfAccountIsCancelled(destinationAccount);
       transactionContext.setTransactionStrategy(new TransferStrategy());
       transactionContext.executeStrategy(originAccount, request.getAmount(), destinationAccount);
       accountService.save(originAccount);
@@ -93,8 +103,10 @@ public class TransactionUseCaseImpl implements TransactionUseCase {
       return saveTransaction(
           TransactionTypeEnum.TRANSFER, TransactionStatusEnum.SUCCESSFUL, transaction);
     } catch (Exception e) {
-      saveTransaction(TransactionTypeEnum.TRANSFER, TransactionStatusEnum.FAILED, transaction);
-      throw new TransactionException(e.getMessage());
+      TransactionResponse response =
+          saveTransaction(TransactionTypeEnum.TRANSFER, TransactionStatusEnum.FAILED, transaction);
+      response.setMessage(e.getMessage());
+      return response;
     }
   }
 
