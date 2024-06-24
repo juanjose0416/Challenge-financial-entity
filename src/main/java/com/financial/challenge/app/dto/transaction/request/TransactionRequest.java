@@ -16,16 +16,16 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class TransactionRequest {
 
-    @JsonProperty
-    @Positive
-    @NotNull(message = "amount can't be null")
-    private BigDecimal amount;
+  @JsonProperty
+  @Positive
+  @NotNull(message = "amount can't be null")
+  private BigDecimal amount;
 
-    @JsonProperty
-    @NotBlank(message = "originAccount can't be null")
-    private String originAccount;
+  @JsonProperty
+  @NotBlank(message = "originAccount can't be null")
+  private String originAccount;
 
-    @JsonProperty
-    @NotBlank(message = "destinationAccount can't be null")
-    private String destinationAccount;
+  @JsonProperty
+  @NotBlank(message = "destinationAccount can't be null")
+  private String destinationAccount;
 }

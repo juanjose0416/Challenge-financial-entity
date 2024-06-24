@@ -97,8 +97,8 @@ public class AccountEntity {
     return isGMFFree;
   }
 
-  public void setGMF(boolean isGMFFree) {
-    this.isGMFFree = isGMFFree;
+  public void setGMFFree(boolean GMFFree) {
+    isGMFFree = GMFFree;
   }
 
   public LocalDateTime getCreatedAt() {

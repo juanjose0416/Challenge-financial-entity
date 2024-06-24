@@ -1,6 +1,8 @@
 package com.financial.challenge.infraestructure.out.jpa.mapper.impl;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import com.financial.challenge.domain.model.Client;
@@ -41,6 +43,9 @@ public class ClientBuilderImpl {
   }
 
   public static List<Client> getClients(List<ClientEntity> clientEntityList) {
+    if (Objects.isNull(clientEntityList)) {
+      return Collections.emptyList();
+    }
     return clientEntityList.stream().map(ClientBuilderImpl::toClient).collect(Collectors.toList());
   }
 }

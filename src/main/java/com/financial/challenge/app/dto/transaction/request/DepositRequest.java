@@ -17,7 +17,7 @@ import lombok.NoArgsConstructor;
 public class DepositRequest {
 
   @JsonProperty
-  @Positive
+  @Positive(message = "amount must be positive")
   @NotNull(message = "amount can't be null")
   private BigDecimal amount;
 

@@ -2,8 +2,6 @@ package com.financial.challenge.infraestructure.in.rest;
 
 import java.util.List;
 
-import javax.validation.Valid;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -25,6 +23,8 @@ import com.financial.challenge.app.usecase.client.ClientDeleterUseCase;
 import com.financial.challenge.app.usecase.client.ClientSelectorUseCase;
 import com.financial.challenge.app.usecase.client.ClientUpdaterUseCase;
 
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 
 @RestController
@@ -50,20 +50,21 @@ public class ClientController {
 
   @PutMapping(path = "/{clientId}", consumes = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<Void> updateClient(
-      @PathVariable("clientId") Long clientId,
+      @PathVariable("clientId") @NotNull Long clientId,
       @Valid @RequestBody UpdateClientRequest request) {
     clientUpdaterUseCase.updateClient(request, clientId);
     return ResponseEntity.status(HttpStatus.OK).build();
   }
 
   @DeleteMapping(path = "/{clientId}")
-  public ResponseEntity<Void> deleteClient(@PathVariable("clientId") Long clientId) {
+  public ResponseEntity<Void> deleteClient(@PathVariable("clientId") @NotNull Long clientId) {
     clientDeleterUseCase.deleteClient(clientId);
     return ResponseEntity.status(HttpStatus.OK).build();
   }
 
   @GetMapping(path = "/{clientId}", produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<ClientResponse> getClient(@PathVariable("clientId") Long clientId) {
+  public ResponseEntity<ClientResponse> getClient(
+      @PathVariable("clientId") @NotNull Long clientId) {
     ClientResponse clientResponse = clientSelectorUseCase.getClient(clientId);
     return ResponseEntity.status(HttpStatus.OK).body(clientResponse);
   }

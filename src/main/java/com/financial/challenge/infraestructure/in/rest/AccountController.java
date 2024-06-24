@@ -2,8 +2,6 @@ package com.financial.challenge.infraestructure.in.rest;
 
 import java.util.List;
 
-import javax.validation.Valid;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -25,6 +23,8 @@ import com.financial.challenge.app.usecase.account.AccountDeleterUseCase;
 import com.financial.challenge.app.usecase.account.AccountSelectorUseCase;
 import com.financial.challenge.app.usecase.account.AccountUpdaterUseCase;
 
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 
 @RestController
@@ -50,20 +50,21 @@ public class AccountController {
 
   @PutMapping(path = "/{accountId}", consumes = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<Void> updateAccount(
-      @PathVariable("accountId") Long accountId,
-      @Validated @RequestBody UpdateAccountRequest request) {
+      @PathVariable("accountId") @NotNull Long accountId,
+      @Valid @RequestBody UpdateAccountRequest request) {
     accountUpdaterUseCase.updateAccount(request, accountId);
     return ResponseEntity.status(HttpStatus.OK).build();
   }
 
   @DeleteMapping(path = "/{accountId}")
-  public ResponseEntity<Void> deleteAccount(@PathVariable("accountId") Long accountId) {
+  public ResponseEntity<Void> deleteAccount(@PathVariable("accountId") @NotNull Long accountId) {
     accountDeleterUseCase.deleteAccount(accountId);
     return ResponseEntity.status(HttpStatus.OK).build();
   }
 
   @GetMapping(path = "/{accountId}", produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<AccountResponse> getAccount(@PathVariable("accountId") Long accountId) {
+  public ResponseEntity<AccountResponse> getAccount(
+      @PathVariable("accountId") @NotNull Long accountId) {
     AccountResponse accountResponse = accountSelectorUseCase.getAccount(accountId);
     return ResponseEntity.ok(accountResponse);
   }
