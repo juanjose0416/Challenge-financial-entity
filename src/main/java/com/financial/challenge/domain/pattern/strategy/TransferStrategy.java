@@ -14,5 +14,6 @@ public class TransferStrategy implements TransactionStrategy {
   public void execute(Account sourceAccount, BigDecimal amount, Account targetAccount)
       throws AccountException {
     sourceAccount.transfer(targetAccount, amount);
+    targetAccount.activate();
   }
 }

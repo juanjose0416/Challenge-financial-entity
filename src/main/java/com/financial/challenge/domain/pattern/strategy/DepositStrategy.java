@@ -9,5 +9,6 @@ public class DepositStrategy implements TransactionStrategy {
   @Override
   public void execute(Account account, BigDecimal amount, Account targetAccount) {
     account.deposit(amount);
+    account.activate();
   }
 }
