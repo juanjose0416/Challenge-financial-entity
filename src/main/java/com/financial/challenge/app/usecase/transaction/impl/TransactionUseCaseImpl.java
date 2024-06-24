@@ -70,8 +70,8 @@ public class TransactionUseCaseImpl implements TransactionUseCase {
       return saveTransaction(
           TransactionTypeEnum.WITHDRAWAL, TransactionStatusEnum.SUCCESSFUL, transaction);
     } catch (Exception e) {
-      return saveTransaction(
-          TransactionTypeEnum.WITHDRAWAL, TransactionStatusEnum.FAILED, transaction);
+      saveTransaction(TransactionTypeEnum.WITHDRAWAL, TransactionStatusEnum.FAILED, transaction);
+      throw new TransactionException(e.getMessage());
     }
   }
 
@@ -93,8 +93,8 @@ public class TransactionUseCaseImpl implements TransactionUseCase {
       return saveTransaction(
           TransactionTypeEnum.TRANSFER, TransactionStatusEnum.SUCCESSFUL, transaction);
     } catch (Exception e) {
-      return saveTransaction(
-          TransactionTypeEnum.TRANSFER, TransactionStatusEnum.FAILED, transaction);
+      saveTransaction(TransactionTypeEnum.TRANSFER, TransactionStatusEnum.FAILED, transaction);
+      throw new TransactionException(e.getMessage());
     }
   }
 
