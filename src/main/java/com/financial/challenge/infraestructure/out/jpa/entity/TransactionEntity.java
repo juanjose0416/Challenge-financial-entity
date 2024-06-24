@@ -45,7 +45,7 @@ public class TransactionEntity {
   private AccountEntity destinationAccount;
 
   @Enumerated(EnumType.STRING)
-  @Column(name = "transaction_type", nullable = false)
+  @Column(name = "status", nullable = false)
   private TransactionStatusEnum status;
 
   @Column(name = "created_at")

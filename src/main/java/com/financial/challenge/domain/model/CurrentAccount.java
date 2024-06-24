@@ -13,15 +13,15 @@ public class CurrentAccount extends Account {
   @Builder
   public CurrentAccount(
       Long id,
-      AccountTypeEnum accountTypeEnum,
+      AccountTypeEnum accountType,
       String accountNumber,
       StatusEnum status,
       BigDecimal balance,
-      boolean isGMF,
+      boolean isGMFFree,
       LocalDateTime createdAt,
       LocalDateTime updatedAt,
       Client client) {
-    super(id, accountTypeEnum, accountNumber, status, balance, isGMF, createdAt, updatedAt, client);
+    super(id, accountType, accountNumber, status, balance, isGMFFree, createdAt, updatedAt, client);
   }
 
   @Override

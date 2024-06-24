@@ -7,9 +7,11 @@ import java.util.List;
 
 import com.financial.challenge.domain.util.enums.DocumentTypeEnum;
 
+import lombok.Builder;
 import lombok.Data;
 
 @Data
+@Builder
 public class Client {
   private Long id;
   private DocumentTypeEnum documentType;

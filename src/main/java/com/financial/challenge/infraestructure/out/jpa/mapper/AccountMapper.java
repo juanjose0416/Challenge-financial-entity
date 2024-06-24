@@ -18,7 +18,5 @@ public interface AccountMapper {
 
   AccountMapper INSTANCE = Mappers.getMapper(AccountMapper.class);
 
-  @Mapping(target = "isGMF", source = "isGMF")
-  @Mapping(source = "client", target = "client")
   AccountEntity accountToAccountEntity(Account account);
 }

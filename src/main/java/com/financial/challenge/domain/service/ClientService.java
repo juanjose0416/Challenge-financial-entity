@@ -12,7 +12,7 @@ public interface ClientService {
 
   void updateClient(Client client);
 
-  void deleteClient(String documentNumber);
+  void deleteClient(Long clientId);
 
   List<Client> getAll();
 

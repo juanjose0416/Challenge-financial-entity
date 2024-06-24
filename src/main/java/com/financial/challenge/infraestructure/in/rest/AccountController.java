@@ -2,9 +2,12 @@ package com.financial.challenge.infraestructure.in.rest;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,13 +25,12 @@ import com.financial.challenge.app.usecase.account.AccountDeleterUseCase;
 import com.financial.challenge.app.usecase.account.AccountSelectorUseCase;
 import com.financial.challenge.app.usecase.account.AccountUpdaterUseCase;
 
-import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 
 @RestController
 @RequestMapping("/accounts")
 @AllArgsConstructor
-@Valid
+@Validated
 public class AccountController {
 
   private final AccountCreatorUseCase accountCreatorUseCase;
@@ -40,14 +42,16 @@ public class AccountController {
       path = "",
       produces = MediaType.APPLICATION_JSON_VALUE,
       consumes = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<AccountResponse> createAccount(@RequestBody CreateAccountRequest request) {
+  public ResponseEntity<AccountResponse> createAccount(
+      @Valid @RequestBody CreateAccountRequest request) {
     AccountResponse accountResponse = accountCreatorUseCase.createAccount(request);
     return ResponseEntity.status(HttpStatus.CREATED).body(accountResponse);
   }
 
   @PutMapping(path = "/{accountId}", consumes = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<Void> updateAccount(
-      @PathVariable("accountId") Long accountId, @RequestBody UpdateAccountRequest request) {
+      @PathVariable("accountId") Long accountId,
+      @Validated @RequestBody UpdateAccountRequest request) {
     accountUpdaterUseCase.updateAccount(request, accountId);
     return ResponseEntity.status(HttpStatus.OK).build();
   }

@@ -15,12 +15,9 @@ import com.financial.challenge.domain.spi.TransactionPersistencePort;
 import com.financial.challenge.infraestructure.out.jpa.adapter.AccountPersistenceAdapter;
 import com.financial.challenge.infraestructure.out.jpa.adapter.ClientPersistenceAdapter;
 import com.financial.challenge.infraestructure.out.jpa.adapter.TransactionPersistenceAdapter;
-import com.financial.challenge.infraestructure.out.jpa.mapper.AccountEntityMapper;
 import com.financial.challenge.infraestructure.out.jpa.mapper.AccountMapper;
-import com.financial.challenge.infraestructure.out.jpa.mapper.ClientEntityMapper;
 import com.financial.challenge.infraestructure.out.jpa.mapper.ClientMapper;
-import com.financial.challenge.infraestructure.out.jpa.mapper.TransactionEntityMapper;
-import com.financial.challenge.infraestructure.out.jpa.mapper.TransactionMapper;
+import com.financial.challenge.infraestructure.out.jpa.mapper.JPATransactionMapper;
 import com.financial.challenge.infraestructure.out.jpa.repository.AccountRepository;
 import com.financial.challenge.infraestructure.out.jpa.repository.ClientRepository;
 import com.financial.challenge.infraestructure.out.jpa.repository.TransactionRepository;
@@ -28,32 +25,23 @@ import com.financial.challenge.infraestructure.out.jpa.repository.TransactionRep
 @Configuration
 public class BeanConfiguration {
 
-  private final AccountEntityMapper accountEntityMapper;
   private final AccountMapper accountMapper;
-  private final ClientEntityMapper clientEntityMapper;
   private final ClientMapper clientMapper;
-  private final TransactionEntityMapper transactionEntityMapper;
-  private final TransactionMapper transactionMapper;
+  private final JPATransactionMapper JPATransactionMapper;
   private final AccountRepository accountRepository;
   private final ClientRepository clientRepository;
   private final TransactionRepository transactionRepository;
 
   public BeanConfiguration(
-      AccountEntityMapper accountEntityMapper,
       AccountMapper accountMapper,
-      ClientEntityMapper clientEntityMapper,
       ClientMapper clientMapper,
-      TransactionEntityMapper transactionEntityMapper,
-      TransactionMapper transactionMapper,
+      JPATransactionMapper JPATransactionMapper,
       AccountRepository accountRepository,
       ClientRepository clientRepository,
       TransactionRepository transactionRepository) {
-    this.accountEntityMapper = accountEntityMapper;
     this.accountMapper = accountMapper;
-    this.clientEntityMapper = clientEntityMapper;
     this.clientMapper = clientMapper;
-    this.transactionEntityMapper = transactionEntityMapper;
-    this.transactionMapper = transactionMapper;
+    this.JPATransactionMapper = JPATransactionMapper;
     this.accountRepository = accountRepository;
     this.clientRepository = clientRepository;
     this.transactionRepository = transactionRepository;
@@ -61,7 +49,7 @@ public class BeanConfiguration {
 
   @Bean
   public AccountPersistencePort accountPersistencePort() {
-    return new AccountPersistenceAdapter(accountRepository, accountMapper, accountEntityMapper);
+    return new AccountPersistenceAdapter(accountRepository, accountMapper);
   }
 
   @Bean
@@ -71,7 +59,7 @@ public class BeanConfiguration {
 
   @Bean
   public ClientPersistencePort clientPersistencePort() {
-    return new ClientPersistenceAdapter(clientRepository, clientMapper, clientEntityMapper);
+    return new ClientPersistenceAdapter(clientRepository, clientMapper);
   }
 
   @Bean
@@ -81,8 +69,7 @@ public class BeanConfiguration {
 
   @Bean
   public TransactionPersistencePort transactionPersistencePort() {
-    return new TransactionPersistenceAdapter(
-        transactionRepository, transactionEntityMapper, transactionMapper);
+    return new TransactionPersistenceAdapter(transactionRepository, JPATransactionMapper);
   }
 
   @Bean

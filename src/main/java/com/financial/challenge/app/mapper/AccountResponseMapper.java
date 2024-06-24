@@ -14,14 +14,12 @@ import com.financial.challenge.domain.model.Account;
     componentModel = "spring",
     unmappedTargetPolicy = ReportingPolicy.IGNORE,
     unmappedSourcePolicy = ReportingPolicy.IGNORE)
-@Component
 public interface AccountResponseMapper {
 
   @Mapping(target = "accountType", source = "accountType")
   @Mapping(target = "accountNumber", source = "accountNumber")
   @Mapping(target = "status", source = "status")
   @Mapping(target = "balance", source = "balance")
-  @Mapping(target = "isGMF", source = "isGMF")
   @Mapping(target = "createdAt", source = "createdAt")
   AccountResponse accountToAccountResponse(Account account);
 

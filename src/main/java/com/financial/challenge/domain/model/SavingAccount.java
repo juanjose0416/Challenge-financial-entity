@@ -7,19 +7,22 @@ import com.financial.challenge.domain.exception.AccountException;
 import com.financial.challenge.domain.util.enums.AccountTypeEnum;
 import com.financial.challenge.domain.util.enums.StatusEnum;
 
+import lombok.Builder;
+
 public class SavingAccount extends Account {
 
+  @Builder
   public SavingAccount(
       Long id,
-      AccountTypeEnum accountTypeEnum,
+      AccountTypeEnum accountType,
       String accountNumber,
       StatusEnum status,
       BigDecimal balance,
-      boolean isGMF,
+      boolean isGMFFree,
       LocalDateTime createdAt,
       LocalDateTime updatedAt,
       Client client) {
-    super(id, accountTypeEnum, accountNumber, status, balance, isGMF, createdAt, updatedAt, client);
+    super(id, accountType, accountNumber, status, balance, isGMFFree, createdAt, updatedAt, client);
     validateBalance();
   }
 

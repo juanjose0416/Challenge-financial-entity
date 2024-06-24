@@ -17,6 +17,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class ClientResponse {
 
+  @JsonProperty private Long id;
+
   @JsonProperty private DocumentTypeEnum documentType;
 
   @JsonProperty private String documentNumber;

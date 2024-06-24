@@ -42,8 +42,8 @@ public class ClientServiceImpl implements ClientService {
   }
 
   @Override
-  public void deleteClient(String documentNumber) {
-    clientPersistencePort.deleteClient(documentNumber);
+  public void deleteClient(Long clientId) {
+    clientPersistencePort.deleteClient(clientId);
   }
 
   @Override

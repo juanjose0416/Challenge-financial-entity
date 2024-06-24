@@ -8,7 +8,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.financial.challenge.domain.exception.AccountException;
 import com.financial.challenge.domain.model.Account;
-import com.financial.challenge.domain.pattern.factory.AccountFactory;
 import com.financial.challenge.domain.service.AccountService;
 import com.financial.challenge.domain.spi.AccountPersistencePort;
 
@@ -30,7 +29,7 @@ public class AccountServiceImpl implements AccountService {
   public Account getAccountById(Long accountId) throws AccountException {
     Optional<Account> account = accountPersistencePort.getAccountById(accountId);
     if (account.isPresent()) {
-      return AccountFactory.getAccountType(account.get());
+      return account.get();
     }
     throw new AccountException("Account doesn't exist");
   }
@@ -54,7 +53,7 @@ public class AccountServiceImpl implements AccountService {
   public Account getAccount(String accountNumber) throws AccountException {
     Optional<Account> account = accountPersistencePort.getAccount(accountNumber);
     if (account.isPresent()) {
-      return AccountFactory.getAccountType(account.get());
+      return account.get();
     }
     throw new AccountException(String.format("Account %s doesn't exist", accountNumber));
   }

@@ -40,8 +40,8 @@ public class AccountEntity {
   @Column(name = "balance", precision = 10, scale = 2, nullable = false)
   private BigDecimal balance;
 
-  @Column(name = "is_gmf", nullable = false)
-  private boolean isGMF;
+  @Column(name = "is_gmf_free", nullable = false)
+  private boolean isGMFFree;
 
   @Column(name = "created_at", updatable = false, nullable = false)
   private LocalDateTime createdAt;
@@ -93,12 +93,12 @@ public class AccountEntity {
     this.balance = balance;
   }
 
-  public boolean isGMF() {
-    return isGMF;
+  public boolean isGMFFree() {
+    return isGMFFree;
   }
 
-  public void setGMF(boolean GMF) {
-    isGMF = GMF;
+  public void setGMF(boolean isGMFFree) {
+    this.isGMFFree = isGMFFree;
   }
 
   public LocalDateTime getCreatedAt() {

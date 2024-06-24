@@ -3,11 +3,12 @@ package com.financial.challenge.app.usecase.transaction.impl;
 import java.math.BigDecimal;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.financial.challenge.app.dto.transaction.request.DepositRequest;
 import com.financial.challenge.app.dto.transaction.request.TransactionRequest;
 import com.financial.challenge.app.dto.transaction.response.TransactionResponse;
-import com.financial.challenge.app.mapper.TransactionMapper;
+import com.financial.challenge.app.mapper.AppTransactionResponseMapper;
 import com.financial.challenge.app.pattern.builder.TransactionBuilder;
 import com.financial.challenge.app.pattern.strategy.TransactionContext;
 import com.financial.challenge.app.usecase.transaction.TransactionUseCase;
@@ -24,21 +25,21 @@ import com.financial.challenge.domain.util.enums.TransactionTypeEnum;
 import lombok.AllArgsConstructor;
 
 @Service
-@AllArgsConstructor
+@Transactional
 public class TransactionUseCaseImpl implements TransactionUseCase {
 
   private final AccountService accountService;
   private final TransactionService transactionService;
   private final TransactionContext transactionContext;
-  private final TransactionMapper transactionMapper;
+  private final AppTransactionResponseMapper appTransactionResponseMapper;
 
   public TransactionUseCaseImpl(
       AccountService accountService,
       TransactionService transactionService,
-      TransactionMapper transactionMapper) {
+      AppTransactionResponseMapper appTransactionResponseMapper) {
     this.accountService = accountService;
     this.transactionService = transactionService;
-    this.transactionMapper = transactionMapper;
+    this.appTransactionResponseMapper = appTransactionResponseMapper;
     this.transactionContext = new TransactionContext();
   }
 
@@ -100,6 +101,6 @@ public class TransactionUseCaseImpl implements TransactionUseCase {
     Transaction transaction =
         transactionBuilder.transactionType(transactionType).status(status).build();
     Transaction transactionResponse = transactionService.execute(transaction);
-    return transactionMapper.toTransactionResponse(transactionResponse);
+    return appTransactionResponseMapper.toTransactionResponse(transactionResponse);
   }
 }

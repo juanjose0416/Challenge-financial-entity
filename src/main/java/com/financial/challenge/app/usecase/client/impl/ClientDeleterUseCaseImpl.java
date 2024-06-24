@@ -23,7 +23,7 @@ public class ClientDeleterUseCaseImpl implements ClientDeleterUseCase {
 
   private void deleteClientIfIsValid(Client client) {
     if (client.getAccounts().isEmpty()) {
-      clientService.deleteClient(client.getDocumentNumber());
+      clientService.deleteClient(client.getId());
     } else {
       throw new ClientException(
           String.format(

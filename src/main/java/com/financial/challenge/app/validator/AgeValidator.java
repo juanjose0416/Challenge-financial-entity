@@ -10,6 +10,9 @@ public class AgeValidator implements ConstraintValidator<ValidAge, LocalDate> {
 
   @Override
   public boolean isValid(LocalDate birthDate, ConstraintValidatorContext context) {
+    if(birthDate == null){
+      return true;
+    }
     return calculateAge(birthDate) >= 18;
   }
 

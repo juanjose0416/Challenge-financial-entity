@@ -24,7 +24,7 @@ public class AccountResponse {
 
   @JsonProperty private BigDecimal balance;
 
-  @JsonProperty private boolean isGMF;
+  @JsonProperty private boolean isGMFFree;
 
   @JsonProperty private LocalDateTime createdAt;
 }

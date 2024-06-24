@@ -13,7 +13,6 @@ import com.financial.challenge.domain.model.Client;
 @Mapper(componentModel = "spring",
         unmappedTargetPolicy = ReportingPolicy.IGNORE,
         unmappedSourcePolicy = ReportingPolicy.IGNORE)
-@Component
 public interface ClientRequestMapper {
 
     @Mappings({

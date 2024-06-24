@@ -2,6 +2,7 @@ package com.financial.challenge.infraestructure.out.jpa.mapper;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.Named;
 import org.mapstruct.ReportingPolicy;
 import org.springframework.stereotype.Component;
 
@@ -13,9 +14,9 @@ import com.financial.challenge.infraestructure.out.jpa.entity.TransactionEntity;
     unmappedTargetPolicy = ReportingPolicy.IGNORE,
     unmappedSourcePolicy = ReportingPolicy.IGNORE)
 @Component
-public interface TransactionEntityMapper {
+public interface JPATransactionMapper {
 
   @Mapping(source = "originAccount", target = "originAccount")
   @Mapping(source = "destinationAccount", target = "destinationAccount")
-  Transaction toTransaction(TransactionEntity transactionEntity);
+  TransactionEntity toTransactionEntity(Transaction transaction);
 }
